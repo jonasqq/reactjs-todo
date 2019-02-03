@@ -1,5 +1,5 @@
-const express = require('express');
-const controller = require('./todo.controller');
+import express from 'express';
+import controller from './todo.controller';
 
 const routes = express();
 routes.route('/')

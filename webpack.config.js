@@ -1,16 +1,15 @@
-const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   entry: {
-    todo: './src/todo.js',
+    todo: './src/todo/todo.client.jsx',
   },
   plugins: [
     new CleanWebpackPlugin(['public', 'views']),
     new HtmlWebpackPlugin({
       title: 'TODO List',
-      template: '!!raw-loader!src/templates/todo.template.ejs',
+      template: '!!raw-loader!src/todo/todo.template.ejs',
       filename: '../../views/todo.ejs',
       minify: {
         removeComments: true,
@@ -20,9 +19,8 @@ const config = {
     }),
   ],
   output: {
-    filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'public/scripts'),
-    publicPath: './public/scripts',
+    path: `${__dirname}/public/scripts`,
+    publicPath: '/public/scripts/',
   },
   module: {
     rules: [
@@ -49,15 +47,18 @@ const config = {
   },
 };
 
-module.exports = (env, argv) => {
+module.exports = (env, argv = { mode: 'development' }) => {
   switch (argv.mode) {
     case 'development':
+      config.output.filename = '[name].js';
       config.devtool = 'inline-source-map';
-      return config;
+      break;
     case 'production':
+      config.output.filename = '[name].[contenthash].js';
       config.devtool = 'source-map';
-      return config;
+      break;
     default:
-      return config;
+      break;
   }
+  return config;
 };
