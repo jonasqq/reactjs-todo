@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node src/index.js",
-    "test": "npm test",
     "build": "rm -rf build && babel src/ -d build/",
-    "build:asset": "webpack --production",
+    "build:asset": "webpack --mode production",
     "build:serve": "node build/index.js",
-    "flow": "flow"
+    "flow": "flow",
+    "eslint": "eslint src/"
   },
   "keywords": [
     "React"

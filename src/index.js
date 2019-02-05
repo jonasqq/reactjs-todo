@@ -10,7 +10,7 @@ const renderReact = require('./utils/renderReact');
 const { NODE_ENV, PORT } = process.env;
 express.response.renderReact = renderReact;
 const app = express();
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 
 if (NODE_ENV === 'development') {
   webpackConfig.mode = NODE_ENV;
@@ -19,8 +19,6 @@ if (NODE_ENV === 'development') {
     publicPath: webpackConfig.output.publicPath,
     writeToDisk: filePath => /.ejs$/.test(filePath),
   }));
-} else {
-  app.use(express.static('public'));
 }
 
 app.get('/', require('./todo/todo.route'));
@@ -42,5 +40,6 @@ if (NODE_ENV === 'development') {
 }
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`App running on ${PORT}`);
 });

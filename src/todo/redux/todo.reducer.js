@@ -1,43 +1,30 @@
 import { combineReducers } from 'redux';
 
 import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  SET_VISIBILITY_FILTER,
-  VisibilityFilters,
+  ADD_TODO_SUCCESS,
+  UPDATE_TODO_SUCCESS,
   FETCH_TODO_SUCCESS,
+  DELETE_TODO,
 } from './todo.action';
-
-const { SHOW_ALL } = VisibilityFilters;
 
 function todos(state = [], action) {
   switch (action.type) {
-    case ADD_TODO:
+    case ADD_TODO_SUCCESS:
       return [
         ...state,
-        {
-          text: action.text,
-          completed: false,
-        },
+        action.data,
       ];
-    case TOGGLE_TODO:
-      return state.map((todo, index) => {
-        if (index === action.index) {
-          return { ...todo, completed: !todo.completed };
+    case UPDATE_TODO_SUCCESS:
+      return state.map((todo) => {
+        if (todo.id === action.id) {
+          return { ...todo, completed: action.data.completed };
         }
         return todo;
       });
     case FETCH_TODO_SUCCESS:
       return [...action.data];
-    default:
-      return state;
-  }
-}
-
-function visibilityFilter(state = SHOW_ALL, action) {
-  switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.filter;
+    case DELETE_TODO:
+      return state.filter(todo => todo.id !== action.id);
     default:
       return state;
   }
@@ -45,7 +32,6 @@ function visibilityFilter(state = SHOW_ALL, action) {
 
 const reducers = combineReducers({
   todos,
-  visibilityFilter,
 });
 
 export default reducers;

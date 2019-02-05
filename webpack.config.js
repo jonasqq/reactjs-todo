@@ -52,13 +52,13 @@ module.exports = (env, argv = { mode: 'development' }) => {
     case 'development':
       config.output.filename = '[name].js';
       config.devtool = 'inline-source-map';
-      break;
+      return config;
     case 'production':
+      config.mode = 'production';
       config.output.filename = '[name].[contenthash].js';
       config.devtool = 'source-map';
-      break;
+      return config;
     default:
-      break;
+      return config;
   }
-  return config;
 };

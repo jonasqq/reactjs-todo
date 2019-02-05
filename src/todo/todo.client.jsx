@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 
 import reducers from './redux/todo.reducer';
 import epics from './redux/todo.epic';
-import TODO from './containers/todoList.container';
+import TodoList from './containers/todoList.container';
 
 const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
@@ -22,7 +22,7 @@ epicMiddleware.run(epics);
 
 hydrate(
   <Provider store={store}>
-    <TODO />
+    <TodoList />
   </Provider>,
   document.getElementById('root'),
 );
