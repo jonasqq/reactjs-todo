@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Todo List",
   "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/jonasqq/reactjs-todo.git"
+  },
   "scripts": {
     "start": "babel-node src/index.js",
     "build": "rm -rf build && babel src/ -d build/",
@@ -12,7 +16,10 @@
     "eslint": "eslint src/"
   },
   "keywords": [
-    "React"
+    "React.js",
+    "Redux",
+    "Rx.js",
+    "StyledComponent"
   ],
   "author": "Nathanael Jonas",
   "license": "ISC",
